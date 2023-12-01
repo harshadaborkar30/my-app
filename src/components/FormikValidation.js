@@ -5,14 +5,17 @@ import Card from "@mui/material/Card";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
 import data1 from "./state_district.json";
-// npm i yup
 
-import { object, string, number, date, Infertype } from "yup";
+import { object, string } from "yup";
 import { MenuItem } from "@mui/material";
 import { useState } from "react";
-import logo from "./download.jpg";
+import img from "./girl.png";
+import logo from "./logo.png";
+
 let userSchema = object({
   name: object({
     first: string()
@@ -60,21 +63,38 @@ const AssignMent = () => {
     if (parseInt(userAnswer, 10) !== expectedAnswer) {
       return "Incorrect captcha. Please try again.";
     }
-    return undefined; // No error
+    return undefined;
   };
   return (
     <Container sx={{ marginTop: "30px" }}>
-      <Card sx={{ textAlign: "center", maxWidth: 500, m: "auto", p: 4 }}>
-        <img style={{ height: "80px", width: "auto" }} src={logo} alt="logo" />
-        <h3
-          style={{
-            fontWeight: "bold",
-            color: "#151161",
-            fontSize: "24px",
-          }}
-        >
+      <Box display="flex" justifyContent="space-between">
+        <Box pt="4rem">
+          <img src={logo} alt="logo" width="200px" height="100px" />
+          <Typography variant="h5" color="blue" fontWeight="bold">
+            #JOB
+          </Typography>
+          <Typography variant="h3" fontWeight="bold" color="navy">
+            Get IT jobs in your city
+          </Typography>
+          <Typography variant="h6" fontWeight="bold">
+            Explore exciting career opportunites at PNC technology
+          </Typography>
+        </Box>
+        <Box>
+          <img src={img} height="400px" width="650px" alt="image here" />
+        </Box>
+      </Box>
+      <Box
+        sx={{
+          textAlign: "center",
+          maxWidth: 500,
+          m: "auto",
+          p: 4,
+        }}
+      >
+        < Typography variant="h5" fontWeight="bold" color="navy" gutterBottom>
           Apply
-        </h3>
+        </Typography>
         <Formik
           initialValues={{
             name: {
@@ -94,7 +114,7 @@ const AssignMent = () => {
 
             if (!user.name || !user.name.first) {
               errors.name = { first: "First Name is required" };
-            } else if (!/^[a-zA-Z]+$/.test(user.name.first)) {
+            } else if (!/^[a-zA-Z ]+$/.test(user.name.first)) {
               errors.name = {
                 first: "Only alphabets are allowed in First Name",
               };
@@ -111,7 +131,7 @@ const AssignMent = () => {
             }
             return errors;
           }}
-          onSubmit={(values, { handleSubmit }) => {
+          onSubmit={(values) => {
             const { name, email, mobile } = values;
             const userData = {
               name: `${name.first} ${name.last}`,
@@ -251,8 +271,8 @@ const AssignMent = () => {
             </form>
           )}
         </Formik>
-      </Card>
-    </Container>
+      </Box>
+    </Container >
   );
 };
 export default AssignMent;
